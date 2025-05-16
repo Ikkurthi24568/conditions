@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    stages{
+    stages {
         stage('Build'){
             steps{
                 echo "building app"
@@ -19,11 +19,6 @@ pipeline{
          stage('Dockerpush'){
             steps{
                 echo "Pushing the image"
-            }
-        }
-         stage('DeployToDev'){
-            steps{
-                echo "Deploying the application to dev env"
             }
         }
          stage('DeployToDev'){
