@@ -1,20 +1,24 @@
-//default envs defined by jenkins for MBP
-
-pipeline {
+pipeline{
     agent any
+     environment{        
+        //DEPLOY_TO = 'production' //just an environment varible
+         DEPLOY_TO = 'nonproduction'
+    }
     stages{
-        stage('Build') {
+        stage("Build"){
             steps{
-                echo "Building the applications"
+                echo "Building the application"
             }
         }
-        stage("DeployToProd"){
-            when {
-                //this stage should trigger if the branch is stage or production
+        stage("anyOfStage"){
+            when{
+                anyOf{
                 expression { BRANCH_NAME ==~ /(production|staging)/}
+                environment name : 'DEPLOY_TO', value : 'production'
+                }
             }
             steps{
-                echo "deploying to production"
+                echo "Deploying K*s applications"
             }
         }
     }
