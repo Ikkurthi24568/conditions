@@ -4,6 +4,7 @@ pipeline {
         booleanParam (name: 'Is SRE Approve?', defaultValue: true, description: 'Is Approval taken from SRE')
         choice( name: 'RELEASE', choices: 'Regular\nHotfix', description: 'what Release is this')
         password(name: 'myPassword', defaultValue: '', description: "Enter the password")
+        credentials(name: 'mycreds', description: 'MyDockerCreds', required:true)
     }
     agent any
     
@@ -19,6 +20,7 @@ pipeline {
                 echo "Deploy to prod"
                 echo "This is a ${params.RELEASE}"
                 echo "The password is ${params.myPassword}"
+                echo "Seleceted Credentials are ${mycreds}"
             }
         }
     }
