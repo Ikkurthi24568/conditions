@@ -10,7 +10,7 @@ pipeline{
                 echo "Building the application"
             }
         }
-        stage("anyOdStage"){
+        stage("anyOfStage"){
             when{
                 anyOf{
                 expression { BRANCH_NAME ==~ /(production|staging)/}
