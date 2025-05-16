@@ -5,7 +5,8 @@ pipeline{
 
     agent any
     environment{
-        DEPLOY_TO = 'production' //just an environment varible
+        //DEPLOY_TO = 'production' //just an environment varible
+        DEPLOY_TO = 'something else'
     }
     
     stages{
