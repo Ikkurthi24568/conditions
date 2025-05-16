@@ -1,7 +1,7 @@
 pipeline {
     parameters{
         string (name : 'CHANGE_TICKET', defaultValue: 'CH12345679', description: 'please enter chnage number')
-        booleanParam (name: 'Is SRE Approve?,' defaultValue: true, description: 'Is Approval taken from SRE')
+        booleanParam (name: 'Is SRE Approve?', defaultValue: true, description: 'Is Approval taken from SRE')
         choice( name: 'RELEASE', choices: 'Regular\nHotfix', description: 'what Release is this')
         password(name: 'myPassword', defaultValue: '', description: "Enter the password")
     }
