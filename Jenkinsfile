@@ -1,24 +1,50 @@
 pipeline{
     agent any
-     environment{        
-        //DEPLOY_TO = 'production' //just an environment varible
-         DEPLOY_TO = 'nonproduction'
-    }
     stages{
-        stage("Build"){
+        stage('Build'){
             steps{
-                echo "Building the application"
+                echo "building app"
             }
         }
-        stage("anyOfStage"){
-            when{
-                anyOf{
-                expression { BRANCH_NAME ==~ /(production|staging)/}
-                environment name : 'DEPLOY_TO', value : 'production'
-                }
+        stage('Sonar'){
+            steps{
+                echo "Scaning app"
+            }
+        }
+         stage('DockerBuild'){
+            steps{
+                echo "Building container app"
+            }
+        }
+         stage('Dockerpush'){
+            steps{
+                echo "Pushing the image"
+            }
+        }
+         stage('DeployToDev'){
+            steps{
+                echo "Deploying the application to dev env"
+            }
+        }
+         stage('DeployToDev'){
+            steps{
+                echo "Deploying the application to Test env"
+            }
+        }
+        stage('DeployToStage'){
+            when {
+                branch 'release/*'
             }
             steps{
-                echo "Deploying K*s applications"
+                echo "Deploying the application to Stage env"
+            }
+        }
+        stage('DeployToProd'){
+            when{
+                tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP"
+            }
+            steps{
+                echo "Deploying the application to Stage env"
             }
         }
     }
