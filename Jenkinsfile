@@ -7,7 +7,7 @@ pipeline{
         password(name: 'myPassword', defaultValue: '', description: "Enter the password")
     }
     stages{
-        stage('Deploy to Dev'){
+        stage('Deploy to Dev') {
             steps{
                 echo "Deploy to dev sucessfully!"
             }
@@ -20,6 +20,5 @@ pipeline{
                 echo "The password is ${params.myPassword}"
             }
         }
-
     }
 }
