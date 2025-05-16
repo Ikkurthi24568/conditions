@@ -1,7 +1,9 @@
-pipeline{
+//default envs defined by jenkins for MBP
+
+pipeline {
     agent any
     stages{
-        stage('Build'){
+        stage('Build') {
             steps{
                 echo "Building the applications"
             }
@@ -9,8 +11,7 @@ pipeline{
         stage("DeployToProd"){
             when {
                 //this stage should trigger if the branch is stage or production
-                expression { BRANCH_NAME ==~/(production|staging)
-                           }
+                expression { BRANCH_NAME ==~ /(production|staging)/}
             }
             steps{
                 echo "deploying to production"
