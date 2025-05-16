@@ -1,21 +1,23 @@
-//When : at least one condition must be specified
-//if more than one codition is specified , all conditions must return true for the stage to be excuted
-
 pipeline{
-
     agent any
-    environment{
-        //DEPLOY_TO = 'production' //just an environment varible
-        DEPLOY_TO = 'something else'
+     environment{        
+        DEPLOY_TO = 'production' //just an environment varible
     }
-    
     stages{
-        stage('WhenStage'){
-            when{
-                environment name : 'DEPLOY_TO', value : 'production'
+        stage("Build"){
+            steps{
+                echo "Building the application"
             }
-            steps {
-                echo "Deploying to when stage"
+        }
+        stage("anyOdStage"){
+            when{
+                anyOf{
+                expression { BRANCH_NAME ==~ /(production|staging)/}
+                environment name : 'DEPLOY_TO', value : 'production'
+                }
+            }
+            steps{
+                echo "Deploying K*s applications"
             }
         }
     }
